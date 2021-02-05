@@ -57,12 +57,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SocialMedia.Data\SocialMedia.Data.csproj">
+      <Project>{8dd383aa-79d6-461d-97e8-9cf26026aa8c}</Project>
+      <Name>SocialMedia.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SocialMedia.Models\SocialMedia.Models.csproj">
+      <Project>{8be5a404-2340-4946-8421-451a3f7dcb84}</Project>
+      <Name>SocialMedia.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
