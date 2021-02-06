@@ -8,9 +8,12 @@ namespace SocialMedia.Models
 {
     public class LikeDetail
     {
+
+        
         public int LikeId { get; set; }
+        public string ChildContentUsername { get; set; }//Username of user that liked comment
         public DateTimeOffset CreatedUtc { get; set; }
-        public string PostTitle { get; set; }
-        public string Author { get; set; }//Author of liked Post
+        public string ParentContentTitle { get; set; }
+        public string ParentContentUsername { get; set; }//Author of liked Post
     }
 }

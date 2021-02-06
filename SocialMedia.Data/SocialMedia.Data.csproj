@@ -101,6 +101,10 @@
     <Compile Include="Migrations\202102060205144_AddedLikes.designer.cs">
       <DependentUpon>202102060205144_AddedLikes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102060538251_AddedLikesV2.cs" />
+    <Compile Include="Migrations\202102060538251_AddedLikesV2.designer.cs">
+      <DependentUpon>202102060538251_AddedLikesV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102060205144_AddedLikes.resx">
       <DependentUpon>202102060205144_AddedLikes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102060538251_AddedLikesV2.resx">
+      <DependentUpon>202102060538251_AddedLikesV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
