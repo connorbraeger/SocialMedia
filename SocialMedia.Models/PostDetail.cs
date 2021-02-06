@@ -14,6 +14,7 @@ namespace SocialMedia.Models
         public string UserName { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
 
+        [Display(Name = "Modified")]
         public DateTimeOffset? ModifiedUtc { get; set; }
     }
 }
