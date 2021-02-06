@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Models
 {
-    class ReplyDetail
+    public class ReplyDetail
     {
+        public int ReplyId { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
+        public string UserName { get; set; }
+        public DateTimeOffset CreatedUtc { get; set; }
+
+        public DateTimeOffset? ModifiedUtc { get; set; }
     }
 }
