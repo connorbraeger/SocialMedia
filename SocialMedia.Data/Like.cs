@@ -8,25 +8,21 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Data
 {
-    public class Post
+    public class Like
     {
-        
         [Key]
-        public int PostId { get; set; }
+        public int LikeId { get; set; }
         [Required]
         [ForeignKey(nameof(ApplicationUser))]
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         [Required]
-        public string Title { get; set; }
+        [ForeignKey(nameof(Post))]
+        public int PostId { get; set; }
         [Required]
-        [MaxLength(280)]
-        public string Text { get; set; }
-
-        [Required]
+        public virtual Post Post { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
 
-        public DateTimeOffset? ModifiedUtc { get; set; }
 
 
     }

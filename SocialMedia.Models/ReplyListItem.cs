@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Models
 {
-    public class PostListItem
+    public class ReplyListItem
     {
-        public int PostId { get; set; }
+        public int ReplyId { get; set; }
         public string UserName { get; set; }
         public string Title { get; set; }
-
-        [Display(Name = "Created")]
         public DateTimeOffset CreatedUtc { get; set; }
     }
 }

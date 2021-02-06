@@ -10,40 +10,39 @@ using System.Web.Http;
 
 namespace SocialMedia.WebAPI.Controllers
 {
-  [Authorize]
-    public class PostController : ApiController
+    public class ReplyController : ApiController
     {
         public IHttpActionResult Get()
         {
-            var service = CreatePostService();
-            return Ok(service.GetPosts());
+            var service = CreateReplyService();
+            return Ok(service.GetReplies());
         }
         public IHttpActionResult Get(int id)
         {
-            var service = CreatePostService();
-            return Ok(service.GetPostById(id));
+            var service = CreateReplyService();
+            return Ok(service.GetReplyById(id));
         }
-        public IHttpActionResult Post(PostCreate post)
+        public IHttpActionResult Post(ReplyCreate reply)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var service = CreatePostService();
-            if (!service.CreatePost(post))
+            var service = CreateReplyService();
+            if (!service.CreateReply(reply))
             {
                 return InternalServerError();
             }
             return Ok();
         }
-        public IHttpActionResult Put(PostEdit post)
+        public IHttpActionResult Put(ReplyEdit reply)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var service = CreatePostService();
-            if (!service.UpdatePost(post))
+            var service = CreateReplyService();
+            if (!service.UpdateReply(reply))
             {
                 return InternalServerError();
             }
@@ -53,20 +52,18 @@ namespace SocialMedia.WebAPI.Controllers
         }
         public IHttpActionResult Delete(int id)
         {
-            var service = CreatePostService();
-            if(!service.DeletePost(id))
+            var service = CreateReplyService();
+            if (!service.DeleteReply(id))
             {
                 return InternalServerError();
             }
             return Ok();
         }
-        private PostService CreatePostService()
+        private ReplyService CreateReplyService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var postService = new PostService(userId);
-            return postService;
+            var replyService = new ReplyService(userId);
+            return replyService;
         }
-
-
     }
 }

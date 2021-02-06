@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Services
 {
-    public class PostService
+    public class ReplyService
     {
         private readonly Guid _userId;
-        public PostService(Guid userId)
+        public ReplyService(Guid userId)
         {
             _userId = userId;
         }
-        public bool CreatePost(PostCreate model)
+        public bool CreateReply(ReplyCreate model)
         {
-            var entity = new Post()
+            var entity = new Reply()
             {
                 ApplicationUserId = _userId.ToString(),
                 Title = model.Title,
@@ -26,50 +26,48 @@ namespace SocialMedia.Services
             };
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.Posts.Add(entity);
+                ctx.Replies.Add(entity);
                 return ctx.SaveChanges() > 0;
             }
 
 
         }
-        public IEnumerable<PostListItem> GetPosts()
-        {
-            using(var ctx = new ApplicationDbContext())
-            {
-                var query = ctx.Posts.Select(
-                    e =>
-                        new PostListItem
-                        {
-                            PostId = e.PostId,
-                            Title = e.Title,
-                            CreatedUtc = e.CreatedUtc,
-                            UserName = e.ApplicationUser.UserName
-                        }
-                    );
-                return query.ToArray();
-            }
-        }
-        public PostDetail GetPostById(int id)
+        public IEnumerable<ReplyListItem> GetReplies()
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Posts.Single(e => e.PostId == id);
-                return new PostDetail
+                var query = ctx.Replies.Select(
+                    e =>
+                        new ReplyListItem
+                        {
+                            ReplyId = e.ReplyId,
+                            Title = e.Title,
+                            CreatedUtc = e.CreatedUtc,
+                        }
+                    ) ;
+                return query.ToArray();
+            }
+        }
+        public ReplyDetail GetReplyById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Replies.Single(e => e.ReplyId == id);
+                return new ReplyDetail
                 {
-                    PostId = entity.PostId,
+                    ReplyId = entity.ReplyId,
                     Title = entity.Title,
                     Text = entity.Text,
                     CreatedUtc = entity.CreatedUtc,
                     ModifiedUtc = entity.ModifiedUtc,
-                    UserName = entity.ApplicationUser.UserName
                 };
             }
         }
-        public bool UpdatePost(PostEdit model)
+        public bool UpdateReply(ReplyEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Posts.Single(e => Guid.Parse(e.ApplicationUserId) == _userId && e.PostId == model.PostId);
+                var entity = ctx.Replies.Single(e => Guid.Parse(e.ApplicationUserId) == _userId && e.ReplyId == model.ReplyId);
                 entity.Text = model.Text;
                 entity.Title = model.Title;
                 entity.ModifiedUtc = DateTimeOffset.Now;
@@ -77,15 +75,14 @@ namespace SocialMedia.Services
 
             }
         }
-        public bool DeletePost (int id)
+        public bool DeleteReply(int id)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Posts.Single(e => Guid.Parse(e.ApplicationUserId) == _userId && e.PostId == id);
-                ctx.Posts.Remove(entity);
+                var entity = ctx.Replies.Single(e => Guid.Parse(e.ApplicationUserId) == _userId && e.ReplyId == id);
+                ctx.Replies.Remove(entity);
                 return ctx.SaveChanges() >= 1;
-            }            
+            }
         }
-
     }
 }
