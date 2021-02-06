@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Models
 {
-    public class NoteDetail
+    class CommentEdit
     {
+        [Required]
         public int ComId { get; set; }
         public string Content { get; set; }
-
-        [Display(Name = "Created")]
-        public DateTimeOffset CreatedUtc { get; set; }
-
-        [Display(Name = "Modified")]
-        public DateTimeOffset? ModifiedUtc { get; set; }
     }
 }
