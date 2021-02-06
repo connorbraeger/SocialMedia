@@ -2,37 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
+using System.Web.Mvc;
 
 namespace SocialMedia.WebAPI.Controllers
 {
-    public class CommentController
+    [Authorize]
+    public class PostController : ApiController
     {
-        public class CommentController : ApiController
+        public IHttpActionResult Get()
         {
-            public IHttpActionResult Get()
-            {
-                NoteService noteService = CreateNoteService();
-                var notes = noteService.GetNotes();
-                return Ok(notes);
-            }
-            public IHttpActionResult Post(NoteCreate note)
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
-                var service = CreateNoteService();
-
-                if (!service.CreateNote(note))
-                    return InternalServerError();
-
-                return Ok();
-            }
-            private NoteService CreateNoteService()
-            {
-                var userId = Guid.Parse(User.Identity.GetUserId());
-                var noteService = new NoteService(userId);
-                return noteService;
-            }
+            var service = CreateCommentService();
+            return Ok(service.GetPosts());
         }
+        public IHttpActionResult Get(int id)
+        {
+            var service = CreateCommentService();
+            return Ok(service.GetCommnetById(id));
+        }
+        public IHttpActionResult Post(CommentCreate post)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var service = CreateCommentService();
+            if (!service.CreateComment(post))
+            {
+                return InternalServerError();
+            }
+            return Ok();
+        }
+        public IHttpActionResult Put(CommentEdit post)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var service = CreateCommentService();
+            if (!service.UpdatePost(post))
+            {
+                return InternalServerError();
+            }
+            return Ok();
+
+        }
+        public IHttpActionResult Delete(int id)
+        {
+            var service = CreateCommentService();
+            if (!service.DeletePost(id))
+            {
+                return InternalServerError();
+            }
+            return Ok();
+        }
+        private CommentService CreateCommnetService()
+        {
+            var comId = Guid.Parse(User.Identity.GetComId());
+            var commmentService = new CommentService(userId);
+            return commmentService;
+        }
+
+
     }
-}
