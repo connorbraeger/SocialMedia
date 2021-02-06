@@ -19,7 +19,7 @@ namespace SocialMedia.Data
         [Required]
         [ForeignKey(nameof(Post))]
         public int PostId { get; set; }
-        [Required]
+       
         public virtual Post Post { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
 
