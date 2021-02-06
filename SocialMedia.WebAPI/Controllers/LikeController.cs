@@ -10,8 +10,10 @@ using System.Web.Http;
 
 namespace SocialMedia.WebAPI.Controllers
 {
+    [Authorize]
     public class LikeController : ApiController
     {
+       
         [HttpPost]
         public IHttpActionResult Post(LikeCreate model)
         {
