@@ -19,7 +19,7 @@ namespace SocialMedia.Services
         {
             var entity = new Post()
             {
-                Author = _userId,
+                ApplicationUserId = _userId.ToString(),
                 Title = model.Title,
                 Text = model.Text,
                 CreatedUtc = DateTimeOffset.Now
@@ -36,13 +36,14 @@ namespace SocialMedia.Services
         {
             using(var ctx = new ApplicationDbContext())
             {
-                var query = ctx.Posts.Where(e => e.Author == _userId).Select(
+                var query = ctx.Posts.Select(
                     e =>
                         new PostListItem
                         {
                             PostId = e.PostId,
                             Title = e.Title,
-                            CreatedUtc = e.CreatedUtc
+                            CreatedUtc = e.CreatedUtc,
+                            UserName = e.ApplicationUser.UserName
                         }
                     );
                 return query.ToArray();
@@ -52,14 +53,15 @@ namespace SocialMedia.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Posts.Single(e => e.PostId == id && e.Author == _userId);
+                var entity = ctx.Posts.Single(e => e.PostId == id);
                 return new PostDetail
                 {
                     PostId = entity.PostId,
                     Title = entity.Title,
                     Text = entity.Text,
                     CreatedUtc = entity.CreatedUtc,
-                    ModifiedUtc = entity.ModifiedUtc
+                    ModifiedUtc = entity.ModifiedUtc,
+                    UserName = entity.ApplicationUser.UserName
                 };
             }
         }
@@ -67,7 +69,7 @@ namespace SocialMedia.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Posts.Single(e => e.Author == _userId && e.PostId == model.PostId);
+                var entity = ctx.Posts.Single(e => Guid.Parse(e.ApplicationUserId) == _userId && e.PostId == model.PostId);
                 entity.Text = model.Text;
                 entity.Title = model.Title;
                 entity.ModifiedUtc = DateTimeOffset.Now;
@@ -79,7 +81,7 @@ namespace SocialMedia.Services
         {
             using(var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Posts.Single(e => e.Author == _userId && e.PostId == id);
+                var entity = ctx.Posts.Single(e => Guid.Parse(e.ApplicationUserId) == _userId && e.PostId == id);
                 ctx.Posts.Remove(entity);
                 return ctx.SaveChanges() >= 1;
             }            

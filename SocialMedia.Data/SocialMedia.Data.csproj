@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="Like.cs" />
     <Compile Include="Migrations\202102042357089_InitialCreate.cs" />
     <Compile Include="Migrations\202102042357089_InitialCreate.designer.cs">
       <DependentUpon>202102042357089_InitialCreate.cs</DependentUpon>
@@ -95,6 +96,10 @@
     <Compile Include="Migrations\202102050041223_ChangedPostKeyName.cs" />
     <Compile Include="Migrations\202102050041223_ChangedPostKeyName.designer.cs">
       <DependentUpon>202102050041223_ChangedPostKeyName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102060205144_AddedLikes.cs" />
+    <Compile Include="Migrations\202102060205144_AddedLikes.designer.cs">
+      <DependentUpon>202102060205144_AddedLikes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Post.cs" />
@@ -110,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102050041223_ChangedPostKeyName.resx">
       <DependentUpon>202102050041223_ChangedPostKeyName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102060205144_AddedLikes.resx">
+      <DependentUpon>202102060205144_AddedLikes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

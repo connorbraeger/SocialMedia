@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Models
 {
-    public class PostListItem
+    public class LikeDetail
     {
-        public int PostId { get; set; }
-        public string UserName { get; set; }
-        public string Title { get; set; }
+        public int LikeId { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
+        public string PostTitle { get; set; }
+        public string Author { get; set; }//Author of liked Post
     }
 }
